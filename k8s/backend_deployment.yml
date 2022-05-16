@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taxonium-backend-deployment
+  labels:
+    app: taxonium-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: taxonium-backend
+  template:
+    metadata:
+      labels:
+        app: taxonium-backend
+    spec:
+      containers:
+        - name: taxonium-backend
+          image: theosanderson/taxonium_backend:master
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          env:
+            - name: DATA_FILE
+              value: >-
+                /amended_data/gisaid.jsonl.gz
+            - name: CONFIG_JSON
+              value: config_gisaid.json
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+          volumeMounts:
+          - mountPath: /amended_data
+            name: data-volume
+      volumes:
+        - name: data-volume
+          hostPath:
+            # directory location on host
+            path: /mnt/data/amended_data
+            # this field is optional
+            type: Directory

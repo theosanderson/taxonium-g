@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2022-05-16T14:38:07Z"
+  labels:
+    app: taxonium-frontend
+  name: taxonium-frontend-deployment
+  namespace: default
+  resourceVersion: "298145"
+  uid: 83cfe171-281d-4077-a610-2b6592ed14fb
+spec:
+  clusterIP: 10.152.183.37
+  clusterIPs:
+  - 10.152.183.37
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 3000
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: taxonium-frontend
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

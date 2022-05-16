@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taxonium-frontend-deployment
+  labels:
+    app: taxonium-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taxonium-frontend
+  template:
+    metadata:
+      labels:
+        app: taxonium-frontend
+    spec:
+      containers:
+        - name: taxonium-frontend
+          image: theosanderson/taxonium_frontend:master
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
