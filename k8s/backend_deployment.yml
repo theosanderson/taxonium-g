@@ -32,6 +32,19 @@ spec:
           volumeMounts:
           - mountPath: /amended_data
             name: data-volume
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 120
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 120
+            periodSeconds: 30
+
       volumes:
         - name: data-volume
           hostPath:
